@@ -30,7 +30,7 @@
   </files>
   <launchers>
     <launcher name="spoc" id="24" customizedId="" external="false" excludeFromMenu="false" unixMode="755" menuName="" icnsFile="" customMacBundleIdentifier="false" macBundleIdentifier="" swtApp="false" fileset="" macBundleBinary="JavaApplicationStub" addMacEntitlements="false" macEntitlementsFile="" useCustomMacosExecutableName="false" customMacosExecutableName="" useJavaMinVersionOverride="false" javaMinVersionOverride="" useJavaMaxVersionOverride="false" javaMaxVersionOverride="">
-      <executable name="spoc" type="1" iconSet="true" iconFile="" executableDir="." redirectStderr="true" stderrFile="error.log" stderrMode="overwrite" redirectStdout="false" stdoutFile="output.log" stdoutMode="overwrite" failOnStderrOutput="true" executableMode="1" changeWorkingDirectory="true" workingDirectory="." singleInstance="false" serviceStartType="2" serviceDependencies="" serviceDescription="" jreLocation="" executionLevel="asInvoker" checkConsoleParameter="false" globalSingleInstance="false" singleInstanceActivate="true" dpiAware="false">
+      <executable name="spoc" type="1" iconSet="true" iconFile="" executableDir="." redirectStderr="true" stderrFile="error.log" stderrMode="overwrite" redirectStdout="true" stdoutFile="output.log" stdoutMode="overwrite" failOnStderrOutput="true" executableMode="2" changeWorkingDirectory="true" workingDirectory="." singleInstance="false" serviceStartType="2" serviceDependencies="" serviceDescription="" jreLocation="" executionLevel="asInvoker" checkConsoleParameter="false" globalSingleInstance="false" singleInstanceActivate="true" dpiAware="false">
         <versionInfo include="true" fileVersion="" fileDescription="${compiler:sys.fullName}" legalCopyright="Copyright (c) 2016 ${compiler:sys.publisher}" internalName="${compiler:sys.shortName}" productName="" />
       </executable>
       <splashScreen show="false" width="0" height="0" bitmapFile="" windowsNative="false" textOverlay="false">
@@ -183,7 +183,7 @@
                         <object class="com.install4j.api.beans.ScriptProperty">
                           <void property="value">
                             <string>Util.dumpVariables(context);
-Util.logInfo(context.getVariableNames());
+Util.logInfo(context.getVariableNames(), context.getVariable("SourceDir").toString());
 return true;</string>
                           </void>
                         </object>
@@ -203,7 +203,7 @@ return true;</string>
                         <string>Whats your folder A?</string>
                       </void>
                       <void property="variableName">
-                        <string>SourceDirectory</string>
+                        <string>SourceDir</string>
                       </void>
                     </object>
                   </java>
@@ -484,5 +484,5 @@ return true;</string>
     </windows>
   </mediaSets>
   <buildIds buildAll="true" />
-  <buildOptions verbose="false" faster="false" disableSigning="false" disableJreBundling="false" debug="false" />
+  <buildOptions verbose="false" faster="false" disableSigning="false" disableJreBundling="false" debug="true" />
 </install4j>
