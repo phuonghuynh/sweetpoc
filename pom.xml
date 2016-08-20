@@ -1,5 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.spoc</groupId>
@@ -11,9 +11,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <java.version>1.5</java.version>
-    <install4j.version>6.0.4</install4j.version>
-    <install4j.home>/Applications/install4j</install4j.home>
+    <java.version>1.8</java.version>
   </properties>
 
   <dependencies>
@@ -21,6 +19,13 @@
       <groupId>com.install4j</groupId>
       <artifactId>install4j-runtime</artifactId>
       <version>6.1</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.sonatype.install4j</groupId>
+      <artifactId>install4j-common</artifactId>
+      <version>1.1.1</version>
     </dependency>
 
     <dependency>
@@ -32,6 +37,7 @@
   </dependencies>
 
   <build>
+    <finalName>${artifactId}</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -43,9 +49,41 @@
       </plugin>
 
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.6</version>
+        <configuration>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+          <outputDirectory>${project.basedir}/build</outputDirectory>
+          <finalName>${build.finalName}</finalName>
+          <attach>false</attach>
+          <appendAssemblyId>false</appendAssemblyId>
+        </configuration>
+        <executions>
+          <execution>
+            <id>assemble-all</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.3.1</version>
+        <configuration>
+          <outputDirectory>${project.basedir}/build</outputDirectory>
+        </configuration>
+      </plugin>
+
+      <plugin>
         <groupId>org.sonatype.install4j</groupId>
         <artifactId>install4j-maven-plugin</artifactId>
-        <!--<version>1.0.8</version>-->
         <executions>
           <execution>
             <id>compile-installers</id>
@@ -54,14 +92,16 @@
               <goal>compile</goal>
             </goals>
             <configuration>
+              <installDir>/Applications/install4j.app/Contents/Resources/app</installDir>
               <projectFile>${project.basedir}/src/main/installer/spoc.install4j</projectFile>
+              <destination>${project.basedir}/media</destination>
               <attach>true</attach>
               <debug>true</debug>
-              <test>true</test>
             </configuration>
           </execution>
         </executions>
       </plugin>
+
     </plugins>
 
     <pluginManagement>
