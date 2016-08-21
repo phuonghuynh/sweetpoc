@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <install4j version="6.1.2" transformSequenceNumber="5">
-  <directoryPresets config="" />
   <application name="SweetPOC" distributionSourceDir="" applicationId="0922-8961-8288-5308" mediaDir="./media" mediaFilePattern="${compiler:sys.shortName}_${compiler:sys.platform}_${compiler:sys.version}" compression="6" lzmaCompression="true" pack200Compression="true" excludeSignedFromPacking="true" commonExternalFiles="false" createMd5Sums="true" shrinkRuntime="true" shortName="spoc" publisher="" publisherWeb="" version="1.0" allPathsRelative="false" backupOnSave="false" autoSave="false" convertDotsToUnderscores="true" macSignature="????" macVolumeId="48efce2cdbcf20a5" javaMinVersion="1.8" javaMaxVersion="" allowBetaVM="false" jdkMode="runtimeJre" jdkName="">
     <languages skipLanguageSelection="false" languageSelectionInPrincipalLanguage="false">
       <principalLanguage id="en" customLocalizationFile="" />
@@ -22,11 +21,42 @@
       <mountPoint id="22" root="" location="bin" mode="755" />
     </mountPoints>
     <entries>
-      <fileEntry mountPoint="22" file="${project.basedir}/sampleapp/simplenotepad.jar" overwriteMode="4" shared="false" fileMode="644" uninstallMode="0" overrideFileMode="false" overrideOverwriteMode="false" overrideUninstallMode="false" />
+      <fileEntry mountPoint="22" file="${build.basedir}/test/resources/simplenotepad.jar" overwriteMode="4" shared="false" fileMode="644" uninstallMode="0" overrideFileMode="false" overrideOverwriteMode="false" overrideUninstallMode="false" />
     </entries>
     <components />
   </files>
-  <launchers />
+  <launchers>
+    <launcher name="sweetpoc" id="122" customizedId="" external="false" excludeFromMenu="false" unixMode="755" menuName="" icnsFile="" customMacBundleIdentifier="false" macBundleIdentifier="" swtApp="false" fileset="" macBundleBinary="JavaApplicationStub" addMacEntitlements="false" macEntitlementsFile="" useCustomMacosExecutableName="false" customMacosExecutableName="" useJavaMinVersionOverride="false" javaMinVersionOverride="" useJavaMaxVersionOverride="false" javaMaxVersionOverride="">
+      <executable name="sweetpoc" type="1" iconSet="false" iconFile="" executableDir="bin" redirectStderr="true" stderrFile="error.log" stderrMode="overwrite" redirectStdout="false" stdoutFile="output.log" stdoutMode="overwrite" failOnStderrOutput="true" executableMode="1" changeWorkingDirectory="true" workingDirectory="." singleInstance="false" serviceStartType="2" serviceDependencies="" serviceDescription="" jreLocation="" executionLevel="asInvoker" checkConsoleParameter="false" globalSingleInstance="false" singleInstanceActivate="true" dpiAware="false">
+        <versionInfo include="true" fileVersion="" fileDescription="${compiler:sys.fullName}" legalCopyright="Copyright 2016 ${compiler:sys.publisher}" internalName="${compiler:sys.shortName}" productName="" />
+      </executable>
+      <splashScreen show="false" width="0" height="0" bitmapFile="" windowsNative="false" textOverlay="false">
+        <text>
+          <statusLine x="20" y="20" text="" fontSize="8" fontColor="0,0,0" bold="false" />
+          <versionLine x="20" y="40" text="version ${compiler:sys.version}" fontSize="8" fontColor="0,0,0" bold="false" />
+        </text>
+      </splashScreen>
+      <java mainClass="com.github.phuonghuynh.Notepad" vmParameters="" arguments="" allowVMPassthroughParameters="true" preferredVM="" bundleRuntime="true">
+        <classPath>
+          <scanDirectory location="bin" failOnError="false" />
+        </classPath>
+        <nativeLibraryDirectories />
+        <vmOptions />
+      </java>
+      <includedFiles />
+      <unextractableFiles />
+      <vmOptionsFile mode="template" overwriteMode="0" fileMode="644">
+        <content />
+      </vmOptionsFile>
+      <customScript mode="1" file="">
+        <content />
+      </customScript>
+      <infoPlist mode="1" file="">
+        <content />
+      </infoPlist>
+      <iconImageFiles />
+    </launcher>
+  </launchers>
   <installerGui installerType="1" addOnAppId="" suggestPreviousLocations="true" autoUpdateDescriptorUrl="" useAutoUpdateBaseUrl="false" autoUpdateBaseUrl="">
     <staticMembers script="" />
     <customCode>
@@ -171,7 +201,10 @@
                         <string>txt</string>
                       </void>
                       <void property="launcherId">
-                        <string>24</string>
+                        <string>122</string>
+                      </void>
+                      <void property="selected">
+                        <boolean>false</boolean>
                       </void>
                     </object>
                   </java>
@@ -243,7 +276,7 @@
                   <java class="java.beans.XMLDecoder">
                     <object class="com.install4j.runtime.beans.actions.finish.ExecuteLauncherAction">
                       <void property="launcherId">
-                        <string>24</string>
+                        <string>122</string>
                       </void>
                     </object>
                   </java>
