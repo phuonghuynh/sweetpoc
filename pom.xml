@@ -12,6 +12,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>1.8</java.version>
+    <install4j.home>${env.INSTALL4J_HOME}</install4j.home>
   </properties>
 
   <dependencies>
@@ -38,6 +39,13 @@
 
   <build>
     <finalName>${artifactId}</finalName>
+    <resources>
+      <resource>
+        <directory>${project.basedir}/src/main/resources</directory>
+        <filtering>true</filtering>
+        <targetPath>${project.basedir}/target</targetPath>
+      </resource>
+    </resources>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -56,7 +64,7 @@
           <descriptorRefs>
             <descriptorRef>jar-with-dependencies</descriptorRef>
           </descriptorRefs>
-          <outputDirectory>${project.basedir}/build</outputDirectory>
+          <!--<outputDirectory>${project.basedir}/build</outputDirectory>-->
           <finalName>${build.finalName}</finalName>
           <attach>false</attach>
           <appendAssemblyId>false</appendAssemblyId>
@@ -76,10 +84,11 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
         <version>2.3.1</version>
-        <configuration>
-          <outputDirectory>${project.basedir}/build</outputDirectory>
-        </configuration>
+        <!--<configuration>-->
+          <!--<outputDirectory>${project.basedir}/build</outputDirectory>-->
+        <!--</configuration>-->
       </plugin>
+
 
       <plugin>
         <groupId>org.sonatype.install4j</groupId>
@@ -92,16 +101,14 @@
               <goal>compile</goal>
             </goals>
             <configuration>
-              <installDir>/Applications/install4j.app/Contents/Resources/app</installDir>
-              <projectFile>${project.basedir}/src/main/installer/spoc.install4j</projectFile>
-              <destination>${project.basedir}/media</destination>
+              <projectFile>${project.build.directory}/spoc.install4j</projectFile>
+              <destination>${project.build.directory}/installer</destination>
               <attach>true</attach>
               <debug>true</debug>
             </configuration>
           </execution>
         </executions>
       </plugin>
-
     </plugins>
 
     <pluginManagement>

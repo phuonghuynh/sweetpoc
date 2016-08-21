@@ -46,7 +46,7 @@ public class SourceDirInstallAction implements InstallAction {
     }
 
     File installDir = installerContext.getInstallationDirectory();
-    String iniFilePath = installDir.getAbsolutePath() + "/" + "output.ini";
+    String iniFilePath = installDir.getAbsolutePath() + "/" + "SafeConsole.ini";
     Util.logInfo(this, String.format("init file %s", iniFilePath));
     try {
       File iniFile = new File(iniFilePath);
