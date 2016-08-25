@@ -5,6 +5,7 @@ import com.install4j.api.actions.InstallAction;
 import com.install4j.api.context.Context;
 import com.install4j.api.context.InstallerContext;
 import com.install4j.api.context.UserCanceledException;
+import com.spoc.util.Utils;
 import org.sonatype.install4j.common.Variables;
 
 import java.io.File;
@@ -25,30 +26,18 @@ public class SourceDirInstallAction implements InstallAction {
   private Context context;
 
   public boolean install(InstallerContext installerContext) throws UserCanceledException {
-    String sourceDir = Variables.getStringVariable(installerContext, "SourceDir");
-    Util.logInfo(this, String.format("selected folder: %s", sourceDir));
-
-    Properties properties = new Properties();
-    File[] propertiesFiles = new File(sourceDir).listFiles((dir, name) -> name.endsWith(".properties"));
-    for (File propertiesFile : propertiesFiles) {
-      try {
-        Properties props = new Properties();
-        props.load(new FileInputStream(propertiesFile));
-        properties.putAll(props);
-      }
-      catch (IOException e) {
-      }
-    }
-
-    if (properties.keySet().size() == 0) {
-      Util.showMessage("No properties found");
-      return true;
-    }
-
-    File installDir = installerContext.getInstallationDirectory();
-    String iniFilePath = installDir.getAbsolutePath() + "/" + "SafeConsole.ini";
-    Util.logInfo(this, String.format("init file %s", iniFilePath));
     try {
+      String sourceDir = Variables.getStringVariable(installerContext, "SourceDir");
+      Util.logInfo(this, String.format("selected folder: %s", sourceDir));
+      Properties properties = Utils.loadFrom(sourceDir);
+      if (properties.keySet().size() == 0) {
+        Util.showMessage("No properties found");
+        return true;
+      }
+
+      File installDir = installerContext.getInstallationDirectory();
+      String iniFilePath = installDir.getAbsolutePath() + "/" + "SafeConsole.ini";
+      Util.logInfo(this, String.format("init file %s", iniFilePath));
       File iniFile = new File(iniFilePath);
       iniFile.createNewFile();
       properties.store(new FileOutputStream(iniFilePath, false), "from custom code");
